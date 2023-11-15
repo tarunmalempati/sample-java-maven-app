@@ -18,8 +18,8 @@ pipeline {
 //             }
 //         }
     stage('Build app') {
-       withMaven(maven: 'mvn') {
       steps {
+       withMaven(maven: 'mvn') {
         sh 'clean install package'
       }
     }
