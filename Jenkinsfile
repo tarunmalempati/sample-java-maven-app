@@ -1,7 +1,7 @@
 pipeline {
   agent any
   tools {
-    maven 'M3'
+    maven 'maven'
   }
   stages {
 //    stage ('Initialize') {
@@ -18,9 +18,11 @@ pipeline {
 //             }
 //         }
     stage('Build app') {
+       withMaven(maven: 'mvn') {
       steps {
         sh 'clean install package'
       }
+    }
     }
   //  stage('Push Artifact to S3') {
   //    steps {
