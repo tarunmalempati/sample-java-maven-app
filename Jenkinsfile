@@ -30,9 +30,11 @@ pipeline {
     
     stage('Deploy to tomcat') {
       steps {
-         sh 'scp -i $tomcat_key -o "StrictHostKeyChecking=no" /var/lib/jenkins/workspace/demo/webapp/target/webapp.war ubuntu@52.66.7.33:/opt/tomcat/webapps'
+        sshagent(['tomcat_key']) {
+         sh 'scp -o "StrictHostKeyChecking=no" /var/lib/jenkins/workspace/demo/webapp/target/webapp.war ubuntu@52.66.7.33:/opt/tomcat/webapps'
 //           sh 'sudo ansible-playbook deploy-new.yml'
       }
+    }
     }
 //     stage('building docker image from docker file by tagging') {
 //       steps {
