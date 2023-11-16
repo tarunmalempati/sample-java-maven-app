@@ -3,6 +3,9 @@ pipeline {
   tools {
     maven 'maven'
   }
+   environment {
+        TOMCAT_SERVER = 'tomcat_key' // Your configured SSH credential ID
+    }
   stages {
 //    stage ('Initialize') {
 //             steps {
@@ -30,7 +33,7 @@ pipeline {
     
     stage('Deploy to tomcat') {
       steps {
-        sshagent(['tomcat_key']) {
+         withCredentials([sshUserPrivateKey(credentialsId: TOMCAT_SERVER, keyFileVariable: 'SSH_KEY')]) {
          sh 'scp -o "StrictHostKeyChecking=no" /var/lib/jenkins/workspace/demo/webapp/target/webapp.war ubuntu@52.66.7.33:/opt/tomcat/webapps'
 //           sh 'sudo ansible-playbook deploy-new.yml'
       }
