@@ -34,7 +34,7 @@ pipeline {
     stage('Deploy to tomcat') {
       steps {
          withCredentials([sshUserPrivateKey(credentialsId: TOMCAT_SERVER, keyFileVariable: 'SSH_KEY')]) {
-         sh 'scp -o "StrictHostKeyChecking=no" /var/lib/jenkins/workspace/demo/webapp/target/webapp.war ubuntu@52.66.7.33:/opt/tomcat/webapps'
+         sh 'scp /var/lib/jenkins/workspace/demo/webapp/target/webapp.war ubuntu@52.66.7.33:/opt/tomcat/webapps'
 //           sh 'sudo ansible-playbook deploy-new.yml'
       }
     }
