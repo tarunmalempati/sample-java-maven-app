@@ -19,10 +19,8 @@ pipeline {
 //         }
     stage('Build app') {
       steps {
-       withMaven(maven: 'mvn') {
         sh 'clean install package'
       }
-    }
     }
   //  stage('Push Artifact to S3') {
   //    steps {
