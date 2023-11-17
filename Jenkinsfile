@@ -3,9 +3,9 @@ pipeline {
   tools {
     maven 'maven'
   }
-   environment {
-        TOMCAT_SERVER = 'tomcat_key' // Your configured SSH credential ID
-    }
+//   environment {
+    //    TOMCAT_SERVER = 'tomcat_key' // Your configured SSH credential ID
+//    }
   stages {
 //    stage ('Initialize') {
 //             steps {
@@ -33,10 +33,10 @@ pipeline {
     
     stage('Deploy to tomcat') {
       steps {
-         withCredentials([sshUserPrivateKey(credentialsId: TOMCAT_SERVER, keyFileVariable: 'SSH_KEY')]) {
-         sh 'scp -o "StrictHostKeyChecking=no" /var/lib/jenkins/workspace/demo/webapp/target/webapp.war ubuntu@3.110.166.71:/opt/tomcat/webapps'
+        // withCredentials([sshUserPrivateKey(credentialsId: TOMCAT_SERVER, keyFileVariable: 'SSH_KEY')]) {
+         sh 'scp  -i demo.pem -o "StrictHostKeyChecking=no" /var/lib/jenkins/workspace/demo/webapp/target/webapp.war ubuntu@3.110.166.71:/opt/tomcat/webapps'
 //           sh 'sudo ansible-playbook deploy-new.yml'
-      }
+    //  }
     }
     }
 //     stage('building docker image from docker file by tagging') {
